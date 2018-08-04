@@ -5,8 +5,6 @@ exports.osu = function (msg) {
     let mode;
     let user = msg.content.toLowerCase().split("stats for ").pop();
 
-
-
     switch (true) {
         case base.contains(msg, "mania"):
             mode = 3;
