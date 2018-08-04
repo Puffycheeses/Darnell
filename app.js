@@ -4,23 +4,7 @@ const keys = require('./modules/keys/keys');
 const client = new Discord.Client();
 
 const odds = 200; // Chance of a gosh darnit
-const ignore = [
-    "holocaust",
-    "incest",
-    "nigger",
-    "massacre",
-    "nuke",
-    "nuking",
-    "murder",
-    "rape",
-    "harassment",
-    "gender",
-    "sjw",
-    "racist",
-    "fuck",
-    "stone",
-    "hitler"
-];
+const ignore = keys.ignore;
 
 client.on('message', msg => {
     let msgText = msg.content.toLowerCase();
