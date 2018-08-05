@@ -30,9 +30,4 @@ client.on('ready', () => {
     client.user.setActivity('Need for Seed 2')
 });
 
-// The point of this is to hide key if I stream editing
-function login() {
-    // O fuck you shouldn't see this
-    client.login(keys.discord);
-}
-login();
+client.login(keys.discord);
