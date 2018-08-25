@@ -2,17 +2,23 @@ const base = require('../base');
 const keys = require('../keys/keys');
 const Discord = require('discord.js');
 
-exports.osu = function (msg) {
+exports.osu = async function (msg) {
     let mode;
     let user = msg.content.toLowerCase().split("stats for ").pop();
 
     switch (true) {
-        case base.contains(msg, "mania"): mode = 3; break;
-        case base.contains(msg, "taiko"): mode = 2; break;
-        default: mode = 0; break;
+        case base.contains(msg, "mania"):
+            mode = 3;
+            break;
+        case base.contains(msg, "taiko"):
+            mode = 2;
+            break;
+        default:
+            mode = 0;
+            break;
     }
 
-    base.makeRequest('https://osu.ppy.sh/api/get_user', {'k': keys.osu, "u": user, "m": mode}).then(data => {
+    await base.makeRequest('https://osu.ppy.sh/api/get_user', {'k': keys.osu, "u": user, "m": mode}).then(data => {
         if (data[0].ranked_score == null) {
             msg.channel.send("User does not exist");
             return;
@@ -37,7 +43,7 @@ exports.osu = function (msg) {
                 **S** ${base.formatNum(data[0].count_rank_s)}\n
                 **A** ${base.formatNum(data[0].count_rank_a)}`);
         msg.channel.send({embed});
-    }).catch(
-        msg.channel.send("No Response From Server")
-    );
+    }).catch(e => {
+        msg.channel.send(`Error\`\`\`${e}\`\`\``);
+    })
 };

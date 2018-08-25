@@ -17,7 +17,7 @@ exports.makeRequest = async function (target, form) {
     };
 
     let returnVal = await request(options);
-    return JSON.parse(returnVal);
+    return JSON.parse(returnVal)
 };
 
 exports.leaveVoice = async function (msg) {
