@@ -24,5 +24,7 @@ exports.GetWaifu = async function GetWaifu(name, msg) {
                 .setImage(data.image);
             msg.channel.send({embed});
         }
+    }).catch( e => {
+            msg.channel.send(`No Response From Server ${e}`)
     });
 };
