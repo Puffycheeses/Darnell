@@ -37,5 +37,7 @@ exports.osu = function (msg) {
                 **S** ${base.formatNum(data[0].count_rank_s)}\n
                 **A** ${base.formatNum(data[0].count_rank_a)}`);
         msg.channel.send({embed});
-    });
+    }).catch(
+        msg.channel.send("No Response From Server")
+    );
 };
