@@ -1,5 +1,5 @@
 const request = require('request-promise');
-
+const keys = require('./keys/keys');
 exports.contains = function (msg, term) {
     return msg.content.includes(term)
 };
@@ -18,4 +18,13 @@ exports.makeRequest = async function (target, form) {
 
     let returnVal = await request(options);
     return JSON.parse(returnVal);
+};
+
+exports.leaveVoice = async function (msg) {
+    const voiceChannel = msg.member.voiceChannel;
+    voiceChannel.leave()
+};
+
+exports.checkPhase = async function (msg) {
+    msg.channel.send(`I am currently on phase ${keys.phase}. This means I am ${keys.percent} way to **MAXIMUM** power.`)
 };
