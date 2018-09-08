@@ -28,6 +28,9 @@ client.on('message', msg => {
             }
         });
     }
+    if (/( ([0-9]{6})$|^([0-9]{6})$| ([0-9]{6}) |^([0-9]{6} ))/g.test(msgText)) {
+        com.nhentai(msg);
+    }
 });
 
 // Set basic Info
