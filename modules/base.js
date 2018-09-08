@@ -20,6 +20,17 @@ exports.makeRequest = async function (target, form) {
     return JSON.parse(returnVal)
 };
 
+exports.makeGetRequest = async function (target) {
+    let options = {
+        url: target,
+        method: 'GET',
+        headers: {'User-Agent': 'Super Agent/0.0.1', 'Content-Type': 'application/x-www-form-urlencoded'},
+    };
+
+    let returnVal = await request(options);
+    return JSON.parse(returnVal)
+};
+
 exports.leaveVoice = async function (msg) {
     const voiceChannel = msg.member.voiceChannel;
     voiceChannel.leave()
