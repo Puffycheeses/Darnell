@@ -6,6 +6,7 @@ const yo = require('./commands/yo');
 const inviteLink = require('./commands/inviteLink');
 const osu = require('./commands/osu');
 const comeOutHere = require('./commands/comeOutHere');
+const nhentai = require('./commands/nhentai');
 
 exports.waifuGrabber = getWaifu.waifu;
 exports.inviteLink = inviteLink.inviteLink;
@@ -13,6 +14,7 @@ exports.yeahNah = yeahNah.YeahNah;
 exports.yo = yo.yo;
 exports.osu = osu.osu;
 exports.comeOutHere = comeOutHere.comeOutHere;
+exports.nhentai = nhentai.nhentai;
 
 exports.checkCommand = async function (message) {
     const commands = {
