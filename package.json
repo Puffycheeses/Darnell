@@ -1,0 +1,32 @@
+{
+  "name": "Darnell",
+  "version": "1.0.0",
+  "description": "Darnell is a discord bot that I run privately but if your interested in the code it is available here",
+  "main": "app.js",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.2",
+    "discord.js": "^11.3.2",
+    "jquery": "^3.3.1",
+    "mongoose": "^5.3.0",
+    "mysql": "^2.15.0",
+    "request": "^2.87.0",
+    "request-promise": "^4.2.2",
+    "webscrape": "^1.4.0",
+    "shelljs": "^0.8.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Puffycheeses/Darnell.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Puffycheeses/Darnell/issues"
+  },
+  "homepage": "https://github.com/Puffycheeses/Darnell#readme"
+}
