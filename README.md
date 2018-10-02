@@ -19,4 +19,4 @@ Darnell is a discord bot that I run privately but if your interested in the code
     - yo darnell can you add Yuuko Aioi to my wishlist
 ---
 
-You can view `checkCommand()` in `hub.js` for specifics on each command 
+You can view `checkCommand()` in `hub.js` for specifics on calling each command 
