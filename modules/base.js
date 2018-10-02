@@ -1,3 +1,7 @@
+// ########################
+// # Needs to be cleaned! #
+// ########################
+
 const request = require('request-promise');
 const keys = require('./keys/keys');
 exports.contains = function (msg, term) {
