@@ -44,7 +44,7 @@ client.on('message', msg => {
 // Set basic Info
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!\nConnected to ${client.guilds.size} servers with ${client.users.size} users total`);
-    client.user.setActivity('Osu!Seed')
+    client.user.setActivity(keys.game)
 });
 
 client.login(keys.discord);
