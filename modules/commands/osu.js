@@ -11,21 +11,11 @@ exports.osu = async function (msg) {
     let user = msg.content.toLowerCase().split("stats for ").pop();
 
     switch (true) {
-        case base.contains(msg, "mania"):
-            mode = 3;
-            break;
-        case base.contains(msg, "ctb"):
-            mode = 2;
-            break;
-        case base.contains(msg, "catch the beat"):
-            mode = 2;
-            break;
-        case base.contains(msg, "taiko"):
-            mode = 1;
-            break;
-        default:
-            mode = 0;
-            break;
+        case base.contains(msg, "mania"): mode = 3; break;
+        case base.contains(msg, "ctb"): mode = 2; break;
+        case base.contains(msg, "catch the beat"): mode = 2; break;
+        case base.contains(msg, "taiko"): mode = 1; break;
+        default: mode = 0; break;
     }
 
     await base.makeRequest('https://osu.ppy.sh/api/get_user', {'k': keys.osu, "u": user, "m": mode}).then(data => {
@@ -52,20 +42,6 @@ exports.osu = async function (msg) {
             .addField(`S`,                                              `${base.formatNum(data[0].count_rank_s)}`,          true)
             .addField(`A`,                                             `${base.formatNum(data[0].count_rank_a)}`,          true)
             .addBlankField(                                                                                                 true);
-            // .addField(data[0].username,
-            //     `:flag_${data[0].country.toLowerCase()}: ${data[0].country.toLowerCase()}}\n
-            //     :earth_americas: #${base.formatNum(data[0].pp_rank)}`)
-            // .addField("Stats",
-            //     `**Ranked Score** ${base.formatNum(data[0].ranked_score)}\n
-            //     **Accuracy** ${Math.round(data[0].accuracy * 100) / 100}%\n
-            //     **Play Count** ${base.formatNum(data[0].playcount)}\n
-            //     **Total Score** ${base.formatNum(data[0].total_score)}`)
-            // .addField("Maps",
-            //     `**SS+** ${base.formatNum(data[0].count_rank_ssh)}\n
-            //     **SS** ${base.formatNum(data[0].count_rank_ss)}\n
-            //     **S+** ${base.formatNum(data[0].count_rank_sh)}\n
-            //     **S** ${base.formatNum(data[0].count_rank_s)}\n
-            //     **A** ${base.formatNum(data[0].count_rank_a)}`);
         msg.channel.send({embed});
     }).catch(e => {
         msg.channel.send(`Error\`\`\`${e}\`\`\``);
