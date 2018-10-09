@@ -5,7 +5,7 @@
 const request = require('request-promise');
 const keys = require('./keys/keys');
 exports.contains = function (msg, term) {
-    return msg.content.includes(term)
+    return msg.content.toLowerCase().includes(term)
 };
 
 exports.formatNum = function (num) {
