@@ -19,6 +19,7 @@ exports.comeOutHere = comeOutHere.comeOutHere;
 exports.nhentai = nhentai.nhentai;
 exports.restart = restart.restart;
 exports.mudae = mudae.addWaifu;
+exports.mudaeRem = mudae.removeWaifu;
 exports.mudaeWishList = mudae.getWishList;
 exports.mudaeCheck = mudae.check;
 
@@ -26,6 +27,7 @@ exports.checkCommand = async function (message) {
     const commands = {
         "getWishList": ["grab", "my", "wishlist"],
         "addWaifu": ["add ", " to my wishlist"],
+        "removeWaifu": ["remove ", " from my wishlist"],
         "restart": ["!reboot"],
         "osu": ["osu", "stats"],
         "inviteLink": ["invite", "link"],
@@ -33,7 +35,7 @@ exports.checkCommand = async function (message) {
         "comeOutHere": ["wanna", "come", "out", "here"],
         "leave": ["please", "leave"],
         "phase": ["current", "phase"],
-        "yo": ["darnell"]
+        "help": ["help"]
     };
     for(let key in commands) {
         if(commands[key].every(word => message.includes(word))) {
