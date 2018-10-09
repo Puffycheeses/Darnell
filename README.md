@@ -1,3 +1,5 @@
+**[Invite to server](https://discordapp.com/oauth2/authorize?client_id=444754530685419520&permissions=0&scope=bot)**
+
 # Darnell
 Darnell is a discord bot that I run privately but if your interested in the code it is available here
 
