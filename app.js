@@ -4,17 +4,16 @@ const keys = require('./modules/keys/keys');
 const base = require('./modules/base');
 const client = new Discord.Client();
 
-
-
 const odds = 200; // Chance of a gosh darnit
 const ignore = keys.ignore;
 
 client.on('message', msg => {
     let msgText = msg.content.toLowerCase();
+    if (msg.author.bot) return;
     if (ignore.some(word => msgText.includes(word))) return;
     if (Math.floor(Math.random() * odds) === 1) { msg.channel.send('gosh darnit darnell'); return;}
     if (/(yo darnell$)/.test(msgText)) com.yo(msg);
-    if (/(yo darnell)( *|, *|. *)(is|did|are|should|will|can|do|have|why|was|am|if|you|what)( *|, *|. *)[a-zA-Z0-9]/.test(msgText)) {
+    if (/(yo darnell)( *|, *|. *)[a-zA-Z0-9]/.test(msgText)) { // (is|did|are|should|will|can|do|have|why|was|am|if|you|what)( *|, *|. *)
         com.checkCommand(msgText).then(command => {
             console.log(`${msgText} => ${command} <= ${msg.author.username}`); // Debug & log
             switch (command) {
@@ -26,7 +25,9 @@ client.on('message', msg => {
                 case "phase": base.checkPhase(msg); break;
                 case "restart": com.restart(msg); break;
                 case "addWaifu": com.mudae(msg); break;
+                case "removeWaifu": com.mudaeRem(msg); break;
                 case "getWishList": com.mudaeWishList(msg); break;
+                case "help": msg.author.send(keys.helpText); msg.channel.send("I PM'd you the help!"); break;
                 default: com.yeahNah(msg); break;
             }
         });
@@ -36,8 +37,15 @@ client.on('message', msg => {
         com.nhentai(msg);
     }
 
-    if (msg.embeds !== [] && msg.author === "432610292342587392" || msg.author === "479206206725160960" || msg.author === "488711695640821760" || msg.author === "494636093711450152") {
-        com.mudaeCheck(msg.embeds[0].title, msg, msg.embeds[0].description)
+    if (msg.embeds !== []) {
+        if (msg.author.id === "432610292342587392" || msg.author.id === "479206206725160960" || msg.author.id === "488711695640821760" || msg.author.id === "494636093711450152") {
+            console.log("Mudae Detected!");
+            com.mudaeCheck(msg)
+        }
+    }
+
+    if (base.contains(msg, "thanks darnell")) {
+        msg.channel.send("No problem")
     }
 });
 
