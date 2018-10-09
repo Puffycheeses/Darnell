@@ -61,12 +61,14 @@ exports.YeahNah = async function yeahnah(msg) {
     let message = msg.content;
     for(let i in Yeah) {
         if(Yeah[i].every(word => message.includes(word))) {
-            msg.channel.send("Yeah")
+            msg.channel.send("Yeah");
+            return
         }
     }
     for(let i in Nah) {
         if(Nah[i].every(word => message.includes(word)))  {
-            msg.channel.send("Nah")
+            msg.channel.send("Nah");
+            return
         }
     }
     msg.channel.send((Math.floor(Math.random() * (2 - 1 + 1)) + 1) === 1 ? "Yeah" : "Nah");
