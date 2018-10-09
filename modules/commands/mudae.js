@@ -43,22 +43,43 @@ exports.addWaifu = function (msg) {
     })
 };
 
-exports.getWishList = function (msg) {
-    user.find({id: msg.author.id.toString()}, function (err, users) {
+exports.removeWaifu = function (msg) {
+    user.find({id: msg.author.id.toString()}, function(err, users) {
         if(users.length < 0) {
-            msg.channel.send("You do not have a wishlist! add to it with \`\`\`yo darnell add ____ to my wishlist\`\`\`")
+            console.log("could not fnd user");
+            self.addUser(msg);
         } else {
-            msg.channel.send(`Your wishlist is:\`\`\`${users[0].waifu}\`\`\``)
+            let waifu = msg.content.split("remove ")[1].split(" from my wishlist")[0];
+            console.log(`removing ${waifu} from wishlist`);
+            let index = users[0].waifu.indexOf(waifu);
+            users[0].waifu.splice(index, 1);
+            users[0].save(function (err) {
+                if(err) console.log(err);
+                err != null ? console.log(err) : msg.channel.send(`removed ${waifu} from your wishlist`)
+            });
         }
     })
 };
 
-exports.check = function (name, msg, show) {
+exports.getWishList = function (msg) {
+    user.find({id: msg.author.id.toString()}, function (err, users) {
+        if(users.length <= 0) {
+            msg.channel.send("You do not have a wishlist! add to it with \`\`\`yo darnell add ____ to my wishlist\`\`\`")
+        } else {
+            msg.channel.send(`Your wishlist is:\`\`\`${users[0].waifu.toString().split(',').join('\n')}\`\`\``)
+        }
+    })
+};
+
+exports.check = function (msg) {
+    if(msg.embeds[0].author.name === undefined) return;
+    let name = msg.embeds[0].author.name;
+    let show = msg.embeds[0].description.split("<")[0];
     // Check DB for character
     user.find({waifu: name.toLowerCase()}, function (err, users) {
         if (users.length > 0) {
             users.forEach(mention => {
-                msg.channel.send(`<@${mention.id}> a waifu from your wishlist has appeared!`)
+                msg.channel.send(`<@${mention.id}> ${name} from your wishlist has appeared!`)
             })
         }
     });
@@ -66,7 +87,7 @@ exports.check = function (name, msg, show) {
     user.find({waifu: show.toLowerCase()}, function (err, users) {
         if (users.length > 0) {
             users.forEach(mention => {
-                msg.channel.send(`<@${mention.id}> a show from your wishlist has appeared!`)
+                msg.channel.send(`<@${mention.id}> the show ${show} from your wishlist has appeared!`)
             })
         }
     })
