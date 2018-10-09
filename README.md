@@ -1,9 +1,12 @@
 **[Invite to server](https://discordapp.com/oauth2/authorize?client_id=444754530685419520&permissions=0&scope=bot)**
 
 # Darnell
-Darnell is a discord bot that I run privately but if your interested in the code it is available here
+Darnell is a discord bot that I made as a joke but it has slowly become one of my favourite projects to work on.
 
 # Commands
+The documentation needs improving, this is on my todo list.   
+Due to the nature of the commands it is difficult to provide a concise way of using them
+
 `yo darnell` is darnell's prefix, you can ask basic yes no questions with this
 
 ---
