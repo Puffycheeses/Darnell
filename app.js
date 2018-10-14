@@ -9,12 +9,12 @@ const ignore = keys.ignore;
 
 client.on('message', msg => {
     let msgText = msg.content.toLowerCase();
-    if (msg.author.bot) return;
-    if (ignore.some(word => msgText.includes(word))) return;
-    if (Math.floor(Math.random() * odds) === 1) { msg.channel.send('gosh darnit darnell'); return;}
-    if (/(yo darnell$)/.test(msgText)) com.yo(msg);
-    if (/(yo darnell)( *|, *|. *)[a-zA-Z0-9]/.test(msgText)) { // (is|did|are|should|will|can|do|have|why|was|am|if|you|what)( *|, *|. *)
-        com.checkCommand(msgText).then(command => {
+    if (msg.author.id === "444754530685419520") return; // Ignore Self
+    if (ignore.some(word => msgText.includes(word))) return; // If message contains any words on ignore lis
+    if (/(^yo darnell$)/.test(msgText)) com.yo(msg); // If message is just "yo darnell" he will respond with yo
+    if (Math.floor(Math.random() * odds) === 1) { msg.channel.send('gosh darnit darnell'); return;} // 1 out of odds chance of "gosh darnit"
+    if (/(^yo darnell)( *|, *|. *)[a-zA-Z0-9]|(^d!)/.test(msgText)) {
+        com.checkCommand(msgText).then(command => { // Run message through checkCommand to see if it contains key words of the command
             console.log(`${msgText} => ${command} <= ${msg.author.username}`); // Debug & log
             switch (command) {
                 case "inviteLink": com.inviteLink(msg); break;
@@ -33,13 +33,12 @@ client.on('message', msg => {
         });
     }
 
-    if (/( ([0-9]{6})$|^([0-9]{6})$| ([0-9]{6}) |^([0-9]{6} ))/g.test(msgText)) {
+    if (/( ([0-9]{6})$|^([0-9]{6})$| ([0-9]{6}) |^([0-9]{6} ))/g.test(msgText)) { // Regex to check if message contains NHentai tag
         com.nhentai(msg);
     }
 
-    if (msg.embeds !== []) {
+    if (msg.embeds !== []) { // A bunch of stuff to check if Mudae has sent a message
         if (msg.author.id === "432610292342587392" || msg.author.id === "479206206725160960" || msg.author.id === "488711695640821760" || msg.author.id === "494636093711450152") {
-            console.log("Mudae Detected!");
             com.mudaeCheck(msg)
         }
     }
