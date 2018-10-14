@@ -4,6 +4,7 @@
 
 const base = require('../base');
 
+
 exports.nhentai = function (msg) {
     let id = msg.content.split(/([0-9]{6})/,).find(value => /([0-9]{6})/.test(value));
     base.makeGetRequest(`https://nhentai.net/api/gallery/${id}`).then(data => {

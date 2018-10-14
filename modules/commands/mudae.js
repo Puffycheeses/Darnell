@@ -17,19 +17,22 @@ exports.addUser = function (msg) {
     });
     user.find({id: msg.author.id.toString()}, function(err, users) {
         if (err) console.log(err);
-        if (users.length < 0) {
+        if (users.length <= 0) {
             newUser.save(function (err) {
                 if (err) return console.log(err);
                 console.log("Inserted new user")
             })
+        } else {
+            console.log("Error creating new user")
         }
     })
 };
 
 exports.addWaifu = function (msg) {
     user.find({id: msg.author.id.toString()}, function(err, users) {
-        if(users.length < 0) {
-            console.log("could not fnd user");
+        if(users.length <= 0) {
+            console.log("could not find user");
+            msg.channel.send(`I could not find you in my database, Don't worry though! \nTry again, everything should work now!\n*This is a temporary fix btw*`);
             self.addUser(msg);
         } else {
             let waifu = msg.content.split("add ")[1].split(" to my wishlist")[0];
@@ -45,8 +48,9 @@ exports.addWaifu = function (msg) {
 
 exports.removeWaifu = function (msg) {
     user.find({id: msg.author.id.toString()}, function(err, users) {
-        if(users.length < 0) {
-            console.log("could not fnd user");
+        if(users.length <= 0) {
+            console.log("could not find user");
+            msg.channel.send(`I could not find you in my database, Don't worry though! \nTry again, everything should work now!\n*This is a temporary fix btw*`);
             self.addUser(msg);
         } else {
             let waifu = msg.content.split("remove ")[1].split(" from my wishlist")[0];
@@ -72,7 +76,7 @@ exports.getWishList = function (msg) {
 };
 
 exports.check = function (msg) {
-    if(msg.embeds[0].author.name === undefined) return;
+    try{if(msg.embeds[0].author.name == null){return}} catch {return}
     let name = msg.embeds[0].author.name;
     let show = msg.embeds[0].description.split("<")[0];
     // Check DB for character
