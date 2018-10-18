@@ -68,7 +68,7 @@ exports.removeWaifu = function (msg) {
                 users[0].show.splice(index, 1);
             } else {
                 removeme = msg.content.toLowerCase().split("remove ")[1].split(" from my wishlist")[0];
-                if(!users[0].show.includes(removeme)) return;
+                if(!users[0].waifu.includes(removeme)) return;
                 let index = users[0].waifu.indexOf(removeme);
                 users[0].waifu.splice(index, 1);
             }
@@ -95,7 +95,7 @@ exports.check = function (msg) {
     let name = msg.embeds[0].author.name;
     let show = msg.embeds[0].description.split("<")[0];
     // Check DB for character
-    user.find({waifu: name.toLowerCase()}, function (err, users) {
+    user.find({waifu: name.toLowerCase().replace(/^\s+|\s+$/g,'')}, function (err, users) {
         if (users.length > 0) {
             users.forEach(mention => {
                 msg.channel.send(`<@${mention.id}> ${name} from your wishlist has appeared!`)
@@ -103,7 +103,7 @@ exports.check = function (msg) {
         }
     });
     // Check DB for show
-    user.find({show: show.toLowerCase()}, function (err, users) {
+    user.find({show: show.toLowerCase().replace(/^\s+|\s+$/g,'')}, function (err, users) {
         if (users.length > 0) {
             users.forEach(mention => {
                 msg.channel.send(`<@${mention.id}> the show ${show} from your wishlist has appeared!`)
