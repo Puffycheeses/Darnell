@@ -50,8 +50,9 @@ client.on('message', msg => {
 
 // Set basic Info
 client.on('ready', () => {
+    console.log(`!!STAGING BRANCH!!`);
     console.log(`Logged in as ${client.user.tag}!\nConnected to ${client.guilds.size} servers with ${client.users.size} users total`);
     client.user.setActivity(keys.game)
 });
 
-client.login(exports.stagingDiscord);
+client.login(keys.stagingDiscord);
