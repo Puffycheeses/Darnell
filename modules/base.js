@@ -41,10 +41,10 @@ exports.leaveVoice = async function (msg) {
     voiceChannel.leave()
 };
 
-const commitCount = require('git-commit-count');
+const commitCount = require('git-rev-sync');
 exports.checkPhase = async function (msg) {
     // All this shit to add a decimal place cause splice wasn't working
-    const commit = commitCount('https://github.com/Puffycheeses/Darnell.git').toString().split("");
+    const commit = commitCount.count().toString().split("");
     console.log(commit);
     commit.push('.');
     commit[commit.length-1] = [commit[commit.length-2],commit[commit.length-2]=commit[commit.length-1]][0];
