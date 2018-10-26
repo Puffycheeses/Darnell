@@ -55,4 +55,9 @@ client.on('ready', () => {
     client.user.setActivity(keys.game)
 });
 
+// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+// ! SWAP THESE WHEN MERGING STAGING TO MASTER !
+// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+//client.login(keys.discord);
 client.login(keys.stagingDiscord);
