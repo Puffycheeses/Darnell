@@ -59,5 +59,5 @@ client.on('ready', () => {
 // ! SWAP THESE WHEN MERGING STAGING TO MASTER !
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-//client.login(keys.discord);
-client.login(keys.stagingDiscord);
+client.login(keys.discord);
+//client.login(keys.stagingDiscord);
