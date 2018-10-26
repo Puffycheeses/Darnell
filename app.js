@@ -54,4 +54,4 @@ client.on('ready', () => {
     client.user.setActivity(keys.game)
 });
 
-client.login(keys.discord);
+client.login(exports.stagingDiscord);
