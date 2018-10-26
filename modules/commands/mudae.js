@@ -83,7 +83,8 @@ exports.removeWaifu = function (msg) {
 exports.getWishList = function (msg) {
     user.find({id: msg.author.id.toString()}, function (err, users) {
         if(users.length <= 0) {
-            msg.channel.send("You do not have a wishlist! add to it with \`\`\`yo darnell add ____ to my wishlist\`\`\`")
+            msg.channel.send("You do not have a wishlist! add to it with \`\`\`yo darnell add ____ to my wishlist\`\`\`");
+            self.addUser(msg);
         } else {
             msg.channel.send(`Your wishlist is:\`\`\`diff\n+\ Waifus\n--- ${users[0].waifu.sort().toString().split(',').join('\n--- ')}\n+\ Shows\n--- ${users[0].show.sort().toString().split(',').join('\n--- ')}\`\`\``)
         }
