@@ -1,10 +1,12 @@
+const keys = require('../keys/keys');
+
 exports.comeOutHere = async function (msg) {
     if (!msg.guild) return;
     const voiceChannel = msg.member.voiceChannel;
     if (voiceChannel) {
         voiceChannel.join()
             .then(connection => {
-                const dispatcher = connection.playFile('/home/Noah/goshDarn/assets/comehere.mp3', {
+                const dispatcher = connection.playFile(keys.path, {
                     volume: 0.25,
                     passes: 3
                 });
