@@ -42,6 +42,7 @@ exports.addWaifu = function (msg) {
             self.addUser(msg);
         } else {
             let addme;
+            let userBackup = users[0];
             if(/(the show)/.test(msg.content)) {
                 addme = msg.content.toLowerCase().split("add the show ")[1].split(" to my wishlist")[0];
                 users[0].show.push(addme.toLowerCase());
@@ -49,11 +50,21 @@ exports.addWaifu = function (msg) {
                 addme = msg.content.toLowerCase().split("add ")[1].split(" to my wishlist")[0];
                 users[0].waifu.push(addme.toLowerCase());
             }
+            user.find({waifu: addme}, function(err, waifu) {
+                if (waifu <= 0) {
+                    users[0].save(function (err) {
+                        if(err) console.log(err);
+                        err != null ? console.log(err) : msg.channel.send(`Added ${addme} to your wishlist`)
+                    });
+                } else {
+                    users[0] = userBackup;
+                    users[0].save(function (err) {
+                        if(err) console.log(err);
+                        err != null ? console.log(err) : msg.channel.send(`Added ${addme} to your wishlist`)
+                    });
+                }
+            })
 
-            users[0].save(function (err) {
-                if(err) console.log(err);
-                err != null ? console.log(err) : msg.channel.send(`Added ${addme} to your wishlist`)
-            });
         }
     })
 };
