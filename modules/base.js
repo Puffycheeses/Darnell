@@ -44,7 +44,7 @@ exports.leaveVoice = async function (msg) {
 
 exports.checkPhase = async function (msg) {
     // All this shit to add a decimal place cause splice wasn't working
-    const commit = shell.exec('cd ~/darnell/.git && git rev-list --all --count', {silent:true}).split("\n")[0].split("");
+    const commit = shell.exec('cd ~/darnell/darnellMaster/.git && git rev-list --all --count', {silent:true}).split("\n")[0].split("");
     commit.push('.');
     commit[commit.length-1] = [commit[commit.length-2],commit[commit.length-2]=commit[commit.length-1]][0];
     msg.channel.send(`I am currently on phase ${commit.join("")}.`)

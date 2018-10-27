@@ -1,7 +1,7 @@
-// #######################################################
+// ########################################################
 // # WARNING EVERYONE LOOKING AT THIS:                    #
 // # THIS IS ALL SPAGHETTI I'D REDO IF I HAD THE PATIENCE #
-// #######################################################
+// ########################################################
 
 const mongoose = require('mongoose');
 const self = require('./mudae');
@@ -45,26 +45,32 @@ exports.addWaifu = function (msg) {
             let userBackup = users[0];
             if(/(the show)/.test(msg.content)) {
                 addme = msg.content.toLowerCase().split("add the show ")[1].split(" to my wishlist")[0];
-                users[0].show.push(addme.toLowerCase());
+                user.find({show: addme}, function(err, waifu) {
+                    if (waifu <= 0) {
+                        users[0].show.push(addme.toLowerCase());
+                        users[0].save(function (err) {
+                            if(err) console.log(err);
+                            err != null ? console.log(err) : msg.channel.send(`Added the show ${addme} to your wishlist`)
+                        });
+                    } else {
+                        msg.channel.send(`The show ${addme} is already in your wishlist`)
+                    }
+                });
+
             } else {
                 addme = msg.content.toLowerCase().split("add ")[1].split(" to my wishlist")[0];
-                users[0].waifu.push(addme.toLowerCase());
+                user.find({waifu: addme}, function(err, waifu) {
+                    if (waifu <= 0) {
+                        users[0].waifu.push(addme.toLowerCase());
+                        users[0].save(function (err) {
+                            if(err) console.log(err);
+                            err != null ? console.log(err) : msg.channel.send(`Added ${addme} to your wishlist`)
+                        });
+                    } else {
+                        msg.channel.send(`The character ${addme} is already in your wishlist`)
+                    }
+                });
             }
-            user.find({waifu: addme}, function(err, waifu) {
-                if (waifu <= 0) {
-                    users[0].save(function (err) {
-                        if(err) console.log(err);
-                        err != null ? console.log(err) : msg.channel.send(`Added ${addme} to your wishlist`)
-                    });
-                } else {
-                    users[0] = userBackup;
-                    users[0].save(function (err) {
-                        if(err) console.log(err);
-                        err != null ? console.log(err) : msg.channel.send(`Added ${addme} to your wishlist`)
-                    });
-                }
-            })
-
         }
     })
 };
