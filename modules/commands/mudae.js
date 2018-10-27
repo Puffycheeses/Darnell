@@ -1,10 +1,9 @@
-// ########################
-// # Needs to be cleaned! #
-// ########################
+// #######################################################
+// # WARNING EVERYONE LOOKING AT THIS:                    #
+// # THIS IS ALL SPAGHETTI I'D REDO IF I HAD THE PATIENCE #
+// #######################################################
 
 const mongoose = require('mongoose');
-const key = require('../keys/keys');
-const Discord = require('discord.js');
 const self = require('./mudae');
 
 let userSchema = new mongoose.Schema({id: String, waifu: Array, show: Array});

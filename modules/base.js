@@ -4,7 +4,6 @@
 
 
 const request = require('request-promise');
-const keys = require('./keys/keys');
 const shell = require('shelljs');
 
 exports.contains = function (msg, term) {
@@ -46,7 +45,6 @@ exports.leaveVoice = async function (msg) {
 exports.checkPhase = async function (msg) {
     // All this shit to add a decimal place cause splice wasn't working
     const commit = shell.exec('cd ~/darnell/.git && git rev-list --all --count').split("\n")[0].split("");
-    console.log(commit);
     commit.push('.');
     commit[commit.length-1] = [commit[commit.length-2],commit[commit.length-2]=commit[commit.length-1]][0];
     msg.channel.send(`I am currently on phase ${commit.join("")}.`)
