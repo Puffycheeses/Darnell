@@ -20,7 +20,7 @@ client.on('message', msg => {
             console.log(`${msgText} => ${command} <= ${msg.author.username}`); // Debug & log
             switch (command) {
                 case "ignoreChannel": com.ignoreChannel(msg); break;
-                case "getFreq": com.getShowFreq(msg); break;
+                // case "getFreq": com.getShowFreq(msg); break;
                 case "inviteLink": com.inviteLink(msg); break;
                 case "waifuGrabber": com.waifuGrabber(msg); break;
                 case "osu": com.osu(msg); break;
