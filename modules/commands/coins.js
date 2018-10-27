@@ -1,61 +1,55 @@
 const mongoose = require('mongoose');
-const key = require('../keys/keys');
-const Discord = require('discord.js');
-const self = require('./mudae');
+
 
 let userSchema = new mongoose.Schema({id: String, coins: Int64, lastEarned: Timestamp});
 let user = mongoose.model('coins', userSchema);
 
-exports.coins = class coins {
-    static addUser(msg) {
-        return new Promise((resolve) => {
-            let newUser = new user({
-                id: msg.author.id.toString(),
-                coins: 0,
-                lastEarned: new Date()
-            });
-            user.find({id: msg.author.id.toString()}, function (err, users) {
-                if (err) console.log(err);
-                if (users.length <= 0) {
-                    newUser.save(function (err) {
-                        if (err) return console.log(err);
-                        console.log("Inserted new user");
-                        resolve(true)
-                    })
-                } else {
-                    console.log("Error creating new user");
-                    resolve(false)
-                }
-            })
+
+function userExists(msg) {
+    return new Promise((resolve) => {
+        user.find({id: msg.author.id.toString()}, function (err, users) {
+            if (users.length <= 0) {
+                resolve(false)
+            } else {
+                resolve(true)
+            }
         })
-    }
+    })
+}
 
-    static checkCoins(msg) {
-        return new Promise((resolve) => {
-            user.find({id: msg.author.id.toString()}, function (err, users) {
-                if (err) console.log(err);
-                if (users.length <= 0) {
-                    this.addUser(msg).then(() => {
-                        msg.channel.send("You are not earning darnell coins but you are now!")
-                    })
-                } else {
-                    msg.channel.send(`You have ${user.coins.toString()} coins`);
-                    resolve(true)
-                }
-            })
+function findUser(msg) {
+    return new Promise((resolve) => {
+        // Assumed already checked user exists
+        user.find({id: msg.author.id.toString()}, function (err, users) {
+            resolve(users)
         })
-    }
-};
+    })
+}
 
 
-exports.addCoins = async function (msg) {
+function addUser(msg) {
+    return new Promise((resolve, reject) => {
+        let newUser = new user({
+            id: msg.author.id.toString(),
+            coins: 0,
+            lastEarned: new Date()
+        });
+        if (userExists(msg)) reject("User Exists");
+        newUser.save(function (err) {
+            if (err) return console.log(err);
+            console.log("Inserted new user");
+            resolve(true)
+        })
+    })
+}
 
-};
 
-exports.spendCoins = async function (msg) {
-
-};
-
-exports.tradeCoins = async function (msg) {
-
+exports.checkCoins = function (msg) {
+    return new Promise((resolve) => {
+        if (!userExists(msg)) addUser(msg);
+        findUser(msg).then(user => {
+            msg.channel.send(`You have ${user.coins.toString()} coins`);
+            resolve(true)
+        })
+    })
 };
