@@ -51,15 +51,7 @@ client.on('message', msg => {
 
     if (base.contains(msg, "thanks darnell")) {
         msg.channel.send("No problem");
-        if (talkedRecently.has(msg.author.id)) {
-            com.addCoins(msg, 1)
-        } else {
-            console.log("User spoke recently");
-            talkedRecently.add(msg.author.id);
-            setTimeout(() => {
-                talkedRecently.delete(msg.author.id);
-            }, 5000);
-        }
+        com.addCoins(msg, 1)
     }
 });
 
