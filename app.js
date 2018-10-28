@@ -6,7 +6,6 @@ const login = require('./modules/keys/login');
 const client = new Discord.Client();
 
 const odds = 200; // Chance of a gosh darnit
-const talkedRecently = new Set(); // https://stackoverflow.com/a/48432168/3673022
 
 client.on('message', msg => {
     let msgText = msg.content.toLowerCase();

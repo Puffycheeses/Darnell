@@ -47,15 +47,13 @@ exports.checkCoins = async function (msg) {
 
 exports.addCoins = async function (msg, amount) {
     console.log("Adding coins");
-    if (userExists(msg)) await addUser(msg).then(
-        await findUser(msg).then(user => {
-            console.log(JSON.stringify(user));
-            user[0].coins += amount;
-            user[0].save(function (err) {
-                if (err) return console.log(err);
-                msg.channel.send(`You have earned ${amount} darnell coins`);
-                return true
-            })
-        })
-    );
+    if (userExists(msg)) await addUser(msg);
+    let user = await findUser(msg);
+    console.log(JSON.stringify(user));
+    user[0].coins += amount;
+    user[0].save(function (err) {
+        if (err) return console.log(err);
+        msg.channel.send(`You have earned ${amount} darnell coins`);
+        return true
+    })
 };
