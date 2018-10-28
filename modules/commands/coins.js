@@ -10,7 +10,6 @@ async function userExists(msg) {
     console.log(users);
     return users.length >= 1;
 }
-}
 
 
 async function findUser(msg) {
