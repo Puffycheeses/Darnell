@@ -6,6 +6,7 @@ const login = require('./modules/keys/login');
 const client = new Discord.Client();
 
 const odds = 200; // Chance of a gosh darnit
+const talkedRecently = new Set(); // https://stackoverflow.com/a/48432168/3673022
 
 client.on('message', msg => {
     let msgText = msg.content.toLowerCase();
@@ -13,7 +14,7 @@ client.on('message', msg => {
     if (msg.author.id === "444754530685419520") return; // Ignore Self
     if (keys.ignore.some(word => msgText.includes(word))) return; // If message contains any words on ignore list
     if (/(^yo darnell$)/.test(msgText)) com.yo(msg); // If message is just "yo darnell" he will respond with yo
-    if (Math.floor(Math.random() * odds) === 1) { msg.channel.send('gosh darnit darnell'); return;} // 1 out of odds chance of "gosh darnit"
+    if (Math.floor(Math.random() * odds) === 1) { msg.channel.send('gosh darnit darnell'); com.coins.addCoins(msg, 100); return;} // 1 out of odds chance of "gosh darnit"
 
     if (/(^yo darnell)( *|, *|. *)[a-zA-Z0-9]|(^d!)/.test(msgText)) {
         com.checkCommand(msgText).then(command => { // Run message through checkCommand to see if it contains key words of the command
@@ -49,9 +50,16 @@ client.on('message', msg => {
     }
 
     if (base.contains(msg, "thanks darnell")) {
-        msg.channel.send("No problem")
+        msg.channel.send("No problem");
+        if (talkedRecently.has(msg.author.id)) {
+            com.coins.addCoins(msg, 1)
+        } else {
+            talkedRecently.add(msg.author.id);
+            setTimeout(() => {
+                talkedRecently.delete(msg.author.id);
+            }, 5000);
+        }
     }
-
 });
 
 // Set basic Info

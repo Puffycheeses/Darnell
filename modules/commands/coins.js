@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 
-let userSchema = new mongoose.Schema({id: String, coins: Int64, lastEarned: Timestamp});
+let userSchema = new mongoose.Schema({id: String, coins: Number, lastEarned: Date});
 let user = mongoose.model('coins', userSchema);
 
 
@@ -16,6 +16,7 @@ function userExists(msg) {
         })
     })
 }
+
 
 function findUser(msg) {
     return new Promise((resolve) => {
@@ -50,6 +51,20 @@ exports.checkCoins = function (msg) {
         findUser(msg).then(user => {
             msg.channel.send(`You have ${user.coins.toString()} coins`);
             resolve(true)
+        })
+    })
+};
+
+exports.addCoins = function (msg, amount) {
+    return new Promise((resolve) => {
+        if (!userExists(msg)) addUser(msg);
+        findUser(msg).then(user => {
+            user[0].coins += amount;
+            user[0].save(function (err) {
+                if (err) return console.log(err);
+                msg.channel.send(`You have earned ${amount} darnell coins`);
+                resolve(true)
+            })
         })
     })
 };

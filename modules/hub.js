@@ -9,6 +9,7 @@ const comeOutHere = require('./commands/comeOutHere');
 const nhentai = require('./commands/nhentai');
 const restart = require('./commands/restart');
 const mudae = require('./commands/mudae');
+const coins = require('./commands/coins');
 
 exports.waifuGrabber = getWaifu.waifu;
 exports.inviteLink = inviteLink.inviteLink;
@@ -23,6 +24,7 @@ exports.mudaeRem = mudae.removeWaifu;
 exports.mudaeWishList = mudae.getWishList;
 exports.mudaeCheck = mudae.check;
 exports.getShowFreq = mudae.getShowFreq;
+exports.coins = coins;
 
 exports.ignoreChannel = mudae.ignoreChannel;
 
