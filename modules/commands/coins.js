@@ -8,24 +8,17 @@ let user = mongoose.model('coins', userSchema);
 async function userExists(msg) {
     let users = await findUser(msg);
     console.log(users);
-    if (users.length >= 1) {
-        console.log("More than 0 users exist");
-        return true
-    } else {
-        console.log("User does not exist");
-        return false
-    }
+    return users.length >= 1;
+}
 }
 
 
 async function findUser(msg) {
-    console.log("Finding user");
     return await user.find({id: msg.author.id.toString()})
 }
 
 
 async function addUser(msg) {
-    console.log("Adding User");
     let newUser = new user({
         id: msg.author.id.toString(),
         coins: 0,
@@ -33,7 +26,6 @@ async function addUser(msg) {
     });
     newUser.save(function (err) {
         if (err) return console.log(err);
-        console.log("Inserted new user");
         return true
     })
 }
@@ -49,11 +41,7 @@ exports.checkCoins = async function (msg) {
 };
 
 exports.addCoins = async function (msg, amount) {
-    console.log("Adding coins");
-    if (await !userExists(msg)) {
-        console.log("User does not exist");
-        await addUser(msg);
-    }
+    if (await !userExists(msg)) {await addUser(msg);}
     let user = await findUser(msg);
     console.log(JSON.stringify(user));
     user[0].coins += amount;
