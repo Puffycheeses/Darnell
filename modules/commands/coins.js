@@ -28,7 +28,6 @@ async function addUser(msg) {
         coins: 0,
         lastEarned: new Date()
     });
-    if (userExists(msg)) return;
     newUser.save(function (err) {
         if (err) return console.log(err);
         console.log("Inserted new user");
