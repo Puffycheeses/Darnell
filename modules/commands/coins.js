@@ -6,17 +6,20 @@ let user = mongoose.model('coins', userSchema);
 
 
 async function userExists(msg) {
-    console.log("Checking if exists");
-    user.find({id: msg.author.id.toString()}, function (err, users) {
-        console.log("Checked users");
-        return users.length <= 0;
-    })
+    let users = await findUser(msg);
+    console.log(users);
+    if (users.length >= 1) {
+        console.log("More than 0 users exist");
+        return true
+    } else {
+        console.log("User does not exist");
+        return false
+    }
 }
 
 
 async function findUser(msg) {
     console.log("Finding user");
-    // Assumed already checked user exists
     return await user.find({id: msg.author.id.toString()})
 }
 
@@ -47,7 +50,10 @@ exports.checkCoins = async function (msg) {
 
 exports.addCoins = async function (msg, amount) {
     console.log("Adding coins");
-    if (userExists(msg)) await addUser(msg);
+    if (await !userExists(msg)) {
+        console.log("User does not exist");
+        await addUser(msg);
+    }
     let user = await findUser(msg);
     console.log(JSON.stringify(user));
     user[0].coins += amount;
