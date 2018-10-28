@@ -5,7 +5,7 @@ let userSchema = new mongoose.Schema({id: String, coins: Number, lastEarned: Dat
 let user = mongoose.model('coins', userSchema);
 
 
-function userExists(msg) {
+async function userExists(msg) {
     console.log("Checking if exists");
     user.find({id: msg.author.id.toString()}, function (err, users) {
         console.log("Checked users");
@@ -14,16 +14,14 @@ function userExists(msg) {
 }
 
 
-function findUser(msg) {
+async function findUser(msg) {
     console.log("Finding user");
     // Assumed already checked user exists
-    user.find({id: msg.author.id.toString()}, function (err, users) {
-        return users
-    })
+    return await user.find({id: msg.author.id.toString()})
 }
 
 
-function addUser(msg) {
+async function addUser(msg) {
     console.log("Adding User");
     let newUser = new user({
         id: msg.author.id.toString(),
@@ -39,23 +37,26 @@ function addUser(msg) {
 }
 
 
-exports.checkCoins = function (msg) {
+exports.checkCoins = async function (msg) {
     console.log("Checking coins");
     if (!userExists(msg)) addUser(msg);
-    let user = findUser(msg);
-    msg.channel.send(`You have ${user.coins.toString()} coins`);
-    return true
-};
-
-exports.addCoins = function (msg, amount) {
-    console.log("Adding coins");
-    console.log(`User Exists: ${userExists(msg)}`);
-    if (userExists(msg)) addUser(msg);
-    let user = findUser(msg);
-    user[0].coins += amount;
-    user[0].save(function (err) {
-        if (err) return console.log(err);
-        msg.channel.send(`You have earned ${amount} darnell coins`);
+    await findUser(msg).then(user => {
+        msg.channel.send(`You have ${user.coins.toString()} coins`);
         return true
     })
+};
+
+exports.addCoins = async function (msg, amount) {
+    console.log("Adding coins");
+    if (userExists(msg)) await addUser(msg).then(
+        await findUser(msg).then(user => {
+            console.log(JSON.stringify(user));
+            user[0].coins += amount;
+            user[0].save(function (err) {
+                if (err) return console.log(err);
+                msg.channel.send(`You have earned ${amount} darnell coins`);
+                return true
+            })
+        })
+    );
 };
