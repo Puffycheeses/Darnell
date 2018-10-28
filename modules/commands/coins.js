@@ -5,7 +5,7 @@ let userSchema = new mongoose.Schema({id: String, coins: Number, lastEarned: Dat
 let user = mongoose.model('coins', userSchema);
 
 
-async function userExists(msg) {
+function userExists(msg) {
     console.log("Checking if exists");
     user.find({id: msg.author.id.toString()}, function (err, users) {
         console.log("Checked users");
@@ -14,7 +14,7 @@ async function userExists(msg) {
 }
 
 
-async function findUser(msg) {
+function findUser(msg) {
     console.log("Finding user");
     // Assumed already checked user exists
     user.find({id: msg.author.id.toString()}, function (err, users) {
@@ -23,7 +23,7 @@ async function findUser(msg) {
 }
 
 
-async function addUser(msg) {
+function addUser(msg) {
     console.log("Adding User");
     let newUser = new user({
         id: msg.author.id.toString(),
@@ -39,25 +39,23 @@ async function addUser(msg) {
 }
 
 
-exports.checkCoins = async function (msg) {
+exports.checkCoins = function (msg) {
     console.log("Checking coins");
     if (!userExists(msg)) addUser(msg);
-    findUser(msg).then(user => {
-        msg.channel.send(`You have ${user.coins.toString()} coins`);
-        return true
-    })
+    let user = findUser(msg);
+    msg.channel.send(`You have ${user.coins.toString()} coins`);
+    return true
 };
 
-exports.addCoins = async function (msg, amount) {
+exports.addCoins = function (msg, amount) {
     console.log("Adding coins");
     console.log(`User Exists: ${userExists(msg)}`);
     if (userExists(msg)) addUser(msg);
-    findUser(msg).then(user => {
-        user[0].coins += amount;
-        user[0].save(function (err) {
-            if (err) return console.log(err);
-            msg.channel.send(`You have earned ${amount} darnell coins`);
-            return true
-        })
+    let user = findUser(msg);
+    user[0].coins += amount;
+    user[0].save(function (err) {
+        if (err) return console.log(err);
+        msg.channel.send(`You have earned ${amount} darnell coins`);
+        return true
     })
 };
