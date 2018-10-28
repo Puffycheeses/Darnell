@@ -24,7 +24,8 @@ exports.mudaeRem = mudae.removeWaifu;
 exports.mudaeWishList = mudae.getWishList;
 exports.mudaeCheck = mudae.check;
 exports.getShowFreq = mudae.getShowFreq;
-exports.coins = coins;
+exports.addCoins = coins.addCoins;
+exports.checkCoins = coins.checkCoins;
 
 exports.ignoreChannel = mudae.ignoreChannel;
 
