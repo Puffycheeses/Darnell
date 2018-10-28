@@ -6,6 +6,7 @@ let user = mongoose.model('coins', userSchema);
 
 
 function userExists(msg) {
+    console.log("Checking if exists");
     return new Promise((resolve) => {
         user.find({id: msg.author.id.toString()}, function (err, users) {
             if (users.length <= 0) {
@@ -19,6 +20,7 @@ function userExists(msg) {
 
 
 function findUser(msg) {
+    console.log("Finding user");
     return new Promise((resolve) => {
         // Assumed already checked user exists
         user.find({id: msg.author.id.toString()}, function (err, users) {
@@ -30,6 +32,7 @@ function findUser(msg) {
 
 function addUser(msg) {
     return new Promise((resolve, reject) => {
+        console.log("Adding User");
         let newUser = new user({
             id: msg.author.id.toString(),
             coins: 0,
@@ -47,6 +50,7 @@ function addUser(msg) {
 
 exports.checkCoins = function (msg) {
     return new Promise((resolve) => {
+        console.log("Checking coins");
         if (!userExists(msg)) addUser(msg);
         findUser(msg).then(user => {
             msg.channel.send(`You have ${user.coins.toString()} coins`);
@@ -57,6 +61,7 @@ exports.checkCoins = function (msg) {
 
 exports.addCoins = function (msg, amount) {
     return new Promise((resolve) => {
+        console.log("Adding coins");
         if (!userExists(msg)) addUser(msg);
         findUser(msg).then(user => {
             user[0].coins += amount;
