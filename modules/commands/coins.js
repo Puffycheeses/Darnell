@@ -8,7 +8,8 @@ let user = mongoose.model('coins', userSchema);
 async function userExists(msg) {
     console.log("Checking if exists");
     user.find({id: msg.author.id.toString()}, function (err, users) {
-        return users.length > 0;
+        console.log("Checked users");
+        return users.length <= 0;
     })
 }
 
@@ -29,7 +30,7 @@ async function addUser(msg) {
         coins: 0,
         lastEarned: new Date()
     });
-    if (userExists(msg)) reject("User Exists");
+    if (userExists(msg)) return;
     newUser.save(function (err) {
         if (err) return console.log(err);
         console.log("Inserted new user");
@@ -49,7 +50,8 @@ exports.checkCoins = async function (msg) {
 
 exports.addCoins = async function (msg, amount) {
     console.log("Adding coins");
-    if (!userExists(msg)) addUser(msg);
+    console.log(`User Exists: ${userExists(msg)}`);
+    if (userExists(msg)) addUser(msg);
     findUser(msg).then(user => {
         user[0].coins += amount;
         user[0].save(function (err) {
