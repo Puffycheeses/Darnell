@@ -1,5 +1,4 @@
 const mongoose = require('mongoose')
-const keys = require('../../keys/keys')
 
 let userSchema = new mongoose.Schema({id: String, coins: Number, lastEarned: Date})
 let user = mongoose.model('coins', userSchema)
@@ -35,9 +34,10 @@ async function getCoins (msg) {
   return (await user.findOne({id: msg.author.id}).select('coins -_id')).coins
 }
 
-async function addCoins (msg, amount) {
+async function addCoins (msg, amount, cooldown) {
   if (!await userExists(msg)) await addUser(msg)
   let user = await getUserData(msg)
+  if (user.lastEarned.getTime() < new Date(Date.now() - cooldown)) return false
   user.coins += amount
   user.save(err => {return err})
   return true
@@ -53,7 +53,7 @@ async function removeCoins (msg, amount) {
 }
 
 async function printCoins (msg) {
-  await msg.channel.send(`You have ${await getCoins(msg)} coins`)
+  await msg.channel.send(`You have ${await getCoins(msg)} ${(await getCoins(msg) === 1) ? "coin" : "coins"}`)
 }
 
 module.exports = {

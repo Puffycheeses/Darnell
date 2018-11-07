@@ -15,7 +15,7 @@ client.on('message', msg => {
   if (/(^yo darnell$)/.test(msgText)) com.yo(msg) // If message is just "yo darnell" he will respond with yo
   if (Math.floor(Math.random() * odds) === 1) {
     msg.channel.send('gosh darnit darnell')
-    com.addCoins(msg, 100)
+    com.addCoins(msg, 100, 0)
     return
   } // 1 out of odds chance of "gosh darnit"
 
@@ -36,7 +36,7 @@ client.on('message', msg => {
         case 'removeWaifu': com.mudaeRem(msg); break
         case 'getWishList': com.mudaeWishList(msg); break
         case 'help': msg.author.send(keys.helpText); msg.channel.send('I PM\'d you the help!'); break
-        default:com.yeahNah(msg); break
+        default: com.yeahNah(msg); break
       }
     })
   }
@@ -53,7 +53,7 @@ client.on('message', msg => {
 
   if (base.contains(msg, 'thanks darnell')) {
     msg.channel.send('No problem')
-    com.addCoins(msg, 1)
+    com.addCoins(msg, 1, 15000)
   }
 })
 // Set basic Info
