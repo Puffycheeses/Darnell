@@ -38,6 +38,7 @@ async function addCoins (msg, amount, cooldown) {
   if (!await userExists(msg)) await addUser(msg)
   let user = await getUserData(msg)
   if (user.lastEarned.getTime() >= new Date().getTime() - cooldown) return false
+  user.lastEarned = new Date()
   user.coins += amount
   user.save(err => {return err})
   return true
