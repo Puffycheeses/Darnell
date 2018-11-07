@@ -29,24 +29,24 @@ exports.checkCoins = coins.checkCoins;
 exports.ignoreChannel = mudae.ignoreChannel;
 
 exports.checkCommand = async function (message) {
-    const commands = {
-        "ignoreChannel": ["can", "you", "ignore"],
-        "getFreq": ["get", "show", "frequency"],
-        "getWishList": ["grab", "my", "wishlist"],
-        "addWaifu": ["add ", " to my wishlist"],
-        "removeWaifu": ["remove ", " from my wishlist"],
-        "restart": ["!reboot"],
-        "osu": ["osu", "stats"],
-        "inviteLink": ["invite", "link"],
-        "waifuGrabber": ["grab", "me"],
-        "comeOutHere": ["wanna", "come", "out", "here"],
-        "leave": ["please", "leave"],
-        "phase": ["current", "phase"],
-        "help": ["help"]
-    };
-    for(let key in commands) {
-        if(commands[key].every(word => message.includes(word))) {
-            return key.toString();
-        }
+  const commands = {
+    "checkCoins": ["check", "my", "coins"],
+    "ignoreChannel": ["can", "you", "ignore"],
+    "getFreq": ["get", "show", "frequency"],
+    "getWishList": ["grab", "my", "wishlist"],
+    "addWaifu": ["add ", " to my wishlist"],
+    "removeWaifu": ["remove ", " from my wishlist"],
+    "osu": ["osu", "stats"],
+    "inviteLink": ["invite", "link"],
+    "waifuGrabber": ["grab", "me"],
+    "comeOutHere": ["wanna", "come", "out", "here"],
+    "leave": ["please", "leave"],
+    "phase": ["current", "phase"],
+    "help": ["help"]
+  };
+  for(let key in commands) {
+    if(commands[key].every(word => message.includes(word))) {
+      return key.toString();
     }
+  }
 };
