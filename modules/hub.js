@@ -9,7 +9,7 @@ const comeOutHere = require('./commands/comeOutHere');
 const nhentai = require('./commands/nhentai');
 const restart = require('./commands/restart');
 const mudae = require('./commands/mudae');
-const coins = require('./commands/coins');
+const coins = require('./commands/coins/coins');
 
 exports.waifuGrabber = getWaifu.waifu;
 exports.inviteLink = inviteLink.inviteLink;
@@ -26,7 +26,6 @@ exports.mudaeCheck = mudae.check;
 exports.getShowFreq = mudae.getShowFreq;
 exports.addCoins = coins.addCoins;
 exports.checkCoins = coins.checkCoins;
-
 exports.ignoreChannel = mudae.ignoreChannel;
 
 exports.checkCommand = async function (message) {
