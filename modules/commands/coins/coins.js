@@ -26,14 +26,17 @@ async function userExists (msg) {
 }
 
 async function getUserData (msg) {
+  if (!await userExists(msg)) await addUser(msg)
   return await user.findOne({id: msg.author.id})
 }
 
 async function getCoins (msg) {
+  if (!await userExists(msg)) await addUser(msg)
   return (await user.findOne({id: msg.author.id}).select('coins -_id')).coins
 }
 
 async function addCoins (msg, amount) {
+  if (!await userExists(msg)) await addUser(msg)
   let user = await getUserData(msg)
   user.coins += amount
   user.save(err => {return err})
@@ -41,6 +44,7 @@ async function addCoins (msg, amount) {
 }
 
 async function removeCoins (msg, amount) {
+  if (!await userExists(msg)) await addUser(msg)
   if (await getCoins(msg) < amount) return false
   let user = await getUserData(msg)
   user.coins -= amount
