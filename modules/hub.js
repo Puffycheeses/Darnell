@@ -25,7 +25,7 @@ exports.mudaeWishList = mudae.getWishList;
 exports.mudaeCheck = mudae.check;
 exports.getShowFreq = mudae.getShowFreq;
 exports.addCoins = coins.addCoins;
-exports.checkCoins = coins.checkCoins;
+exports.checkCoins = coins.printCoins;
 exports.ignoreChannel = mudae.ignoreChannel;
 
 exports.checkCommand = async function (message) {

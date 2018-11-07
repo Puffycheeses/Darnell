@@ -52,6 +52,10 @@ async function removeCoins (msg, amount) {
   return true
 }
 
+async function printCoins (msg) {
+  await msg.channel.send(`You have ${await getCoins(msg)} coins`)
+}
+
 module.exports = {
   userExists: userExists,
   getUserData: getUserData,
@@ -59,5 +63,6 @@ module.exports = {
   getCoins: getCoins,
   addCoins: addCoins,
   removeCoins: removeCoins,
-  removeUser: removeUser
+  removeUser: removeUser,
+  printCoins: printCoins
 }

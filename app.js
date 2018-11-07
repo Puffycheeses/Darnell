@@ -23,49 +23,20 @@ client.on('message', msg => {
     com.checkCommand(msgText).then(command => { // Run message through checkCommand to see if it contains key words of the command
       console.log(`${msgText} => ${command} <= ${msg.author.username}`) // Debug & log
       switch (command) {
-        case 'ignoreChannel':
-          com.ignoreChannel(msg)
-          break
-      // case "getFreq":
-        // com.getShowFreq(msg);
-        // break;
-        case 'inviteLink':
-          com.inviteLink(msg)
-          break
-        case 'waifuGrabber':
-          com.waifuGrabber(msg)
-          break
-        case 'osu':
-          com.osu(msg)
-          break
-        case 'comeOutHere':
-          com.comeOutHere(msg)
-          break
-        case 'leave':
-          base.leaveVoice(msg)
-          break
-        case 'phase':
-          base.checkPhase(msg)
-          break
-        case 'restart':
-          com.restart(msg)
-          break
-        case 'addWaifu':
-          com.mudae(msg)
-          break
-        case 'removeWaifu':
-          com.mudaeRem(msg)
-          break
-        case 'getWishList':
-          com.mudaeWishList(msg)
-          break
-        case 'help':
-          msg.author.send(keys.helpText)
-          msg.channel.send('I PM\'d you the help!')
-          break
-        default:
-          com.yeahNah(msg)
-          break
+        case 'checkCoins': com.checkCoins(msg); break
+        case 'ignoreChannel': com.ignoreChannel(msg); break
+        case 'inviteLink':com.inviteLink(msg); break
+        case 'waifuGrabber': com.waifuGrabber(msg); break
+        case 'osu': com.osu(msg); break
+        case 'comeOutHere': com.comeOutHere(msg); break
+        case 'leave': base.leaveVoice(msg); break
+        case 'phase': base.checkPhase(msg); break
+        case 'restart': com.restart(msg); break
+        case 'addWaifu': com.mudae(msg); break
+        case 'removeWaifu': com.mudaeRem(msg); break
+        case 'getWishList': com.mudaeWishList(msg); break
+        case 'help': msg.author.send(keys.helpText); msg.channel.send('I PM\'d you the help!'); break
+        default:com.yeahNah(msg); break
       }
     })
   }
