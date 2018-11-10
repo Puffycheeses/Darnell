@@ -123,12 +123,13 @@ async function getWishlist(msg) {
   let user = await getUserData(msg)
   let wishlist = `\`\`\`diff\n+\ Waifus\n`
   user.waifu.forEach(char => {
-    wishlist.concat(`---${char}\n`)
+    wishlist += `--- ${char.charAt(0).toUpperCase() + char.slice(1)}\n`
   })
-  wishlist.concat("+\ Shows\n")
+  wishlist += "+\ Shows\n"
   user.show.forEach(shows => {
-    wishlist.concat(`---${shows}\n`)
+    wishlist += `--- ${shows.charAt(0).toUpperCase() + shows.slice(1)}\n`
   })
+  wishlist += "\`\`\`"
   msg.channel.send(wishlist)
   return true
 }
