@@ -94,19 +94,25 @@ async function check (msg) {
   if (await ignoreChannel(msg)) return false
   let name = msg.embeds[0].author.name.toLowerCase().replace(/^\s+|\s+$/g, '')
   let show = msg.embeds[0].description.split('<')[0].split('\n')[0].toLowerCase().replace(/^\s+|\s+$/g, '')
-  let tagged = base.arrayUnique((await checkWaifu (name)).concat((await checkShow(show)))).toString().replace(/,/g, " ")
+  let tagged = base.arrayUnique((await checkWaifu (msg, name)).concat((await checkShow(msg, show)))).toString().replace(/,/g, " ")
   if (tagged) {
     msg.channel.send(`${name} from ${show} has appeared! ${tagged}`)
   }
 
 }
 
-async function checkWaifu (name) {
-  return (await user.find({waifu: name}).select({"id": 1, "_id": 0})).map(obj => {return `<@${obj.id}>`})
+async function checkWaifu (msg, name) {
+  return (await user.find({waifu: name})
+  .select({"id": 1, "_id": 0}))
+  .map(obj => {return `<@${obj.id}>`})
+  .filter(exists => {return ((msg.guild.members).map(usr => {return `<@${usr}>`})).includes( exists );})
 }
 
-async function checkShow(show) {
-  return (await user.find({show: show}).select({"id": 1, "_id": 0})).map(obj => {return `<@${obj.id}>`})
+async function checkShow(msg, show) {
+  return (await user.find({show: show})
+  .select({"id": 1, "_id": 0}))
+  .map(obj => {return `<@${obj.id}>`})
+  .filter(exists => {return ((msg.guild.members).map(usr => {return `<@${usr}>`})).includes( exists );})
 }
 
 async function ignoreChannel(msg) {
@@ -151,11 +157,11 @@ module.exports = {
   removeUser: removeUser
 }
 
-keys.db.once('open', async function () {
-  const data = require('../../../test/data.js')
-  let msg = new data.Message('yo darnell add megumin to my wishlist')
-  if(await user.countDocuments({id: msg.author.id, waifu: "megumin"}) > 0) {
-    console.log(`user has megumin`)
-  }
-})
+// keys.db.once('open', async function () {
+//   const data = require('../../../test/data.js')
+//   let msg = new data.Message('yo darnell add megumin to my wishlist')
+//   let userlist = checkWaifu('megumin')
+//   let memlist =  [ '<@<@171175566542766080>>', '<@<@173015228106145792>>', '<@<@186032420934385664>>', '<@<@193629379429924864>>', '<@<@216303189073461248>>', '<@<@228405433633603584>>', '<@<@278752426822205440>>', '<@<@289346872932564992>>', '<@<@305243136882638858>>', '<@<@426490880019660800>>', '<@<@432610292342587392>>', '<@<@435655909960581130>>', '<@<@444754530685419520>>', '<@<@449500966698352651>>' ]
+//
+// })
 
