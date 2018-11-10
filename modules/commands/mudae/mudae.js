@@ -35,12 +35,20 @@ async function getUserData (msg) {
   return await user.findOne({id: msg.author.id})
 }
 
+async function waifuExists (msg, name) {
+  return await user.countDocuments({id: msg.author.id, waifu: name}) > 0
+}
+
+async function showExists (msg, name) {
+  return await user.countDocuments({id: msg.author.id, show: name}) > 0
+}
 
 // Adding and removing waifus and shows
 async function addWaifu (msg) {
   if (!await userExists(msg)) await addUser(msg)
   let user = await getUserData(msg)
   let waifu = msg.content.toLowerCase().split("yo darnell add ")[1].split(" to my wishlist")[0]
+  if (await waifuExists(msg, waifu)) return false
   user.waifu.push(waifu)
   user.save(err => { return !err })
   msg.channel.send(`${waifu} added!`)
@@ -51,6 +59,7 @@ async function addShow (msg) {
   if (!await userExists(msg)) await addUser(msg)
   let user = await getUserData(msg)
   let show = msg.content.toLowerCase().split("yo darnell add the show ")[1].split(" to my wishlist")[0]
+  if (await showExists(msg, show)) return false
   user.show.push(show)
   user.save(err => { return !err })
   msg.channel.send(`${show} added!`)
@@ -61,6 +70,7 @@ async function removeWaifu (msg) {
   if (!await userExists(msg)) await addUser(msg)
   let user = await getUserData(msg)
   let waifu = msg.content.toLowerCase().split("yo darnell remove ")[1].split(" from my wishlist")[0]
+  if (!await waifuExists(msg, waifu)) return false
   user.waifu.splice(user.waifu.indexOf(waifu), 1)
   user.save(err => { return !err })
   msg.channel.send(`${waifu} removed!`)
@@ -71,6 +81,7 @@ async function removeShow (msg) {
   if (!await userExists(msg)) await addUser(msg)
   let user = await getUserData(msg)
   let show = msg.content.toLowerCase().split("yo darnell remove the show ")[1].split(" from my wishlist")[0]
+  if (!await showExists(msg, show)) return false
   user.show.splice(user.show.indexOf(show), 1)
   user.save(err => { return !err })
   msg.channel.send(`${show} removed!`)
@@ -140,9 +151,11 @@ module.exports = {
   removeUser: removeUser
 }
 
-// keys.db.once('open', async function () {
-//   const data = require('../../../test/data.js')
-//   let msg = new data.Message('general test message')
-//   getWishlist(msg)
-// })
+keys.db.once('open', async function () {
+  const data = require('../../../test/data.js')
+  let msg = new data.Message('yo darnell add megumin to my wishlist')
+  if(await user.countDocuments({id: msg.author.id, waifu: "megumin"}) > 0) {
+    console.log(`user has megumin`)
+  }
+})
 
