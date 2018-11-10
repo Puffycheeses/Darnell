@@ -40,7 +40,7 @@ async function getUserData (msg) {
 async function addWaifu (msg) {
   if (!await userExists(msg)) await addUser(msg)
   let user = await getUserData(msg)
-  let waifu = msg.content.toLowerCase().split("yo darnell add ")[1].split(" to my wishlist")
+  let waifu = msg.content.toLowerCase().split("yo darnell add ")[1].split(" to my wishlist")[0]
   user.waifu.push(waifu)
   user.save(err => { return !err })
   return true
@@ -49,7 +49,7 @@ async function addWaifu (msg) {
 async function addShow (msg) {
   if (!await userExists(msg)) await addUser(msg)
   let user = await getUserData(msg)
-  let show = msg.content.toLowerCase().split("yo darnell add the show ")[1].split(" to my wishlist")
+  let show = msg.content.toLowerCase().split("yo darnell add the show ")[1].split(" to my wishlist")[0]
   user.show.push(show)
   user.save(err => { return !err })
   return true
@@ -58,7 +58,7 @@ async function addShow (msg) {
 async function removeWaifu (msg) {
   if (!await userExists(msg)) await addUser(msg)
   let user = await getUserData(msg)
-  let waifu = msg.content.toLowerCase().split("yo darnell remove ")[1].split(" from my wishlist")
+  let waifu = msg.content.toLowerCase().split("yo darnell remove ")[1].split(" from my wishlist")[0]
   user.waifu.splice(user.waifu.indexOf(waifu), 1)
   user.save(err => { return !err })
   return true
@@ -67,7 +67,7 @@ async function removeWaifu (msg) {
 async function removeShow (msg) {
   if (!await userExists(msg)) await addUser(msg)
   let user = await getUserData(msg)
-  let show = msg.content.toLowerCase().split("yo darnell remove the show ")[1].split(" from my wishlist")
+  let show = msg.content.toLowerCase().split("yo darnell remove the show ")[1].split(" from my wishlist")[0]
   user.show.splice(user.show.indexOf(show), 1)
   user.save(err => { return !err })
   return true
@@ -79,15 +79,19 @@ async function check (msg) {
   if (await ignoreChannel(msg)) return false
   let name = msg.embeds[0].author.name.toLowerCase().replace(/^\s+|\s+$/g, '')
   let show = msg.embeds[0].description.split('<')[0].split('\n')[0].substring(0, 16).toLowerCase().replace(/^\s+|\s+$/g, '')
-  msg.channel.send(`${base.arrayUnique((await checkWaifu (name)).concat((await checkShow(show)))).replace(/,/g, " ")} something from your wishlist has appeared`)
+  let tagged = base.arrayUnique((await checkWaifu (name)).concat((await checkShow(show)))).toString().replace(/,/g, " ")
+  if (tagged) {
+    msg.channel.send(`${tagged} something from your wishlist has appeared`)
+  }
+
 }
 
 async function checkWaifu (name) {
-  return (await user.find({waifu: name}).select({"id": 1, "_id": 0})).map(obj => {return `@<${obj.id}>`})
+  return (await user.find({waifu: name}).select({"id": 1, "_id": 0})).map(obj => {return `<@${obj.id}>`})
 }
 
 async function checkShow(show) {
-  return (await user.find({show: show}).select({"id": 1, "_id": 0})).map(obj => {return `@<${obj.id}>`})
+  return (await user.find({show: show}).select({"id": 1, "_id": 0})).map(obj => {return `<@${obj.id}>`})
 }
 
 async function ignoreChannel(msg) {

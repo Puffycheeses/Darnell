@@ -42,10 +42,10 @@ exports.checkCommand = async function (message) {
     "ignoreChannel": ["can", "you", "ignore"],
     "unignoreChannel": ["can", "you", "un-ignore"],
     "getWishList": ["grab", "my", "wishlist"],
-    "addWaifu": ["add ", " to my wishlist"],
-    "removeWaifu": ["remove ", " from my wishlist"],
     "addShow": ["add the show ", " to my wishlist"],
+    "addWaifu": ["add ", " to my wishlist"],
     "removeShow": ["remove the show ", " from my wishlist"],
+    "removeWaifu": ["remove ", " from my wishlist"],
     // Osu
     "osu": ["osu", "stats"],
     // General
