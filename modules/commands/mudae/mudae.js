@@ -43,6 +43,7 @@ async function addWaifu (msg) {
   let waifu = msg.content.toLowerCase().split("yo darnell add ")[1].split(" to my wishlist")[0]
   user.waifu.push(waifu)
   user.save(err => { return !err })
+  msg.channel.send(`${waifu} added!`)
   return true
 }
 
@@ -52,6 +53,7 @@ async function addShow (msg) {
   let show = msg.content.toLowerCase().split("yo darnell add the show ")[1].split(" to my wishlist")[0]
   user.show.push(show)
   user.save(err => { return !err })
+  msg.channel.send(`${show} added!`)
   return true
 }
 
@@ -61,6 +63,7 @@ async function removeWaifu (msg) {
   let waifu = msg.content.toLowerCase().split("yo darnell remove ")[1].split(" from my wishlist")[0]
   user.waifu.splice(user.waifu.indexOf(waifu), 1)
   user.save(err => { return !err })
+  msg.channel.send(`${waifu} removed!`)
   return true
 }
 
@@ -70,6 +73,7 @@ async function removeShow (msg) {
   let show = msg.content.toLowerCase().split("yo darnell remove the show ")[1].split(" from my wishlist")[0]
   user.show.splice(user.show.indexOf(show), 1)
   user.save(err => { return !err })
+  msg.channel.send(`${show} removed!`)
   return true
 }
 
