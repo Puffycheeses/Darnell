@@ -105,14 +105,14 @@ async function checkWaifu (msg, name) {
   return (await user.find({waifu: name})
   .select({"id": 1, "_id": 0}))
   .map(obj => {return `<@${obj.id}>`})
-  .filter(exists => {return ((msg.guild.members).map(usr => {return `${usr}`})).includes( exists );})
+  .filter(exists => {return ((msg.guild.members).map(usr => {return `${usr}`.replace("!", "")})).includes( exists );})
 }
 
 async function checkShow(msg, show) {
   return (await user.find({show: show})
   .select({"id": 1, "_id": 0}))
   .map(obj => {return `<@${obj.id}>`})
-  .filter(exists => {return ((msg.guild.members).map(usr => {return `${usr}`})).includes( exists );})
+  .filter(exists => {return ((msg.guild.members).map(usr => {return `${usr}`.replace("!", "")})).includes( exists );})
 }
 
 async function ignoreChannel(msg) {
