@@ -93,7 +93,7 @@ async function removeShow (msg) {
 async function check (msg) {
   if (await ignoreChannel(msg)) return false
   let name = msg.embeds[0].author.name.toLowerCase().replace(/^\s+|\s+$/g, '')
-  let show = msg.embeds[0].description.split('<')[0].split('\n')[0].substring(0, 16).toLowerCase().replace(/^\s+|\s+$/g, '')
+  let show = msg.embeds[0].description.split('<')[0].split('\n')[0].toLowerCase().replace(/^\s+|\s+$/g, '')
   let tagged = base.arrayUnique((await checkWaifu (name)).concat((await checkShow(show)))).toString().replace(/,/g, " ")
   if (tagged) {
     msg.channel.send(`${name} from ${show} has appeared! ${tagged}`)
