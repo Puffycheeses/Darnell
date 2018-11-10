@@ -40,7 +40,7 @@ async function getUserData (msg) {
 async function addWaifu (msg) {
   if (!await userExists(msg)) await addUser(msg)
   let user = await getUserData(msg)
-  let waifu = msg.content.toLowerCase().split("yo darnell add ")[1].split(" to my wishlist")
+  let waifu = msg.content.split("yo darnell add ")[1].split(" to my wishlist").toLowerCase()
   user.waifu.push(waifu)
   user.save(err => { return !err })
   return true
@@ -49,7 +49,7 @@ async function addWaifu (msg) {
 async function addShow (msg) {
   if (!await userExists(msg)) await addUser(msg)
   let user = await getUserData(msg)
-  let show = msg.content.toLowerCase().split("yo darnell add the show ")[1].split(" to my wishlist")
+  let show = msg.content.split("yo darnell add the show ")[1].split(" to my wishlist").toLowerCase()
   user.show.push(show)
   user.save(err => { return !err })
   return true

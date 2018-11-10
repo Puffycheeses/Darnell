@@ -49,13 +49,8 @@ exports.checkPhase = async function (msg) {
   msg.channel.send(`I am currently on phase ${commit.join('')}.`)
 }
 
-exports.mudaeCheck = async function (msg) {
-  if (msg.author.id === '432610292342587392' || msg.author.id === '479206206725160960' || msg.author.id === '488711695640821760' || msg.author.id === '494636093711450152') {
-    if (msg.embeds !== []) {
-      return true
-    }
-  }
-  return false
+exports.CheckIfMsgIsMudae = function (msg) {
+  return (msg.author.id === '432610292342587392' || msg.author.id === '479206206725160960' || msg.author.id === '488711695640821760' || msg.author.id === '494636093711450152') && msg.embeds !== [];
 }
 
 exports.arrayUnique = function (array) {

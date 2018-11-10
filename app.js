@@ -52,7 +52,7 @@ client.on('message', msg => {
     com.nhentai(msg)
   }
 
-  if (base.mudaeCheck(msg)) {
+  if (base.CheckIfMsgIsMudae(msg)) {
       com.mudaeCheck(msg)
   }
 
