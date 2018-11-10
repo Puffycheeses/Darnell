@@ -48,4 +48,5 @@ describe('Coins', function () {
       (await coins.removeUser(msg)).should.equal(true)
     })
   })
+
 })

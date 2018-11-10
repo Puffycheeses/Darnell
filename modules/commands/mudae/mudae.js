@@ -40,7 +40,7 @@ async function getUserData (msg) {
 async function addWaifu (msg) {
   if (!await userExists(msg)) await addUser(msg)
   let user = await getUserData(msg)
-  let waifu = msg.content.split("yo darnell add ")[1].split(" to my wishlist").toLowerCase()
+  let waifu = msg.content.toLowerCase().split("yo darnell add ")[1].split(" to my wishlist")
   user.waifu.push(waifu)
   user.save(err => { return !err })
   return true
@@ -49,7 +49,7 @@ async function addWaifu (msg) {
 async function addShow (msg) {
   if (!await userExists(msg)) await addUser(msg)
   let user = await getUserData(msg)
-  let show = msg.content.split("yo darnell add the show ")[1].split(" to my wishlist").toLowerCase()
+  let show = msg.content.toLowerCase().split("yo darnell add the show ")[1].split(" to my wishlist")
   user.show.push(show)
   user.save(err => { return !err })
   return true
@@ -95,8 +95,9 @@ async function ignoreChannel(msg) {
 }
 
 async function getWishlist(msg) {
-  let user = getUserData(msg)
+  let user = await getUserData(msg)
   msg.channel.send(`Your wishlist is:\`\`\`diff\n+\ Waifus\n--- ${user.waifu.sort().toString().split(',').join('\n--- ')}\n+\ Shows\n--- ${user.show.sort().toString().split(',').join('\n--- ')}\`\`\``)
+  return true
 }
 
 
@@ -132,6 +133,8 @@ module.exports = {
 }
 
 // keys.db.once('open', async function () {
-//   console.log(base.arrayUnique((await checkWaifu ('joseph joestar')).concat((await checkShow('overwatch')))))
+//   const data = require('../../../test/data.js')
+//   let msg = new data.Message('general test message')
+//   getWishlist(msg)
 // })
 
