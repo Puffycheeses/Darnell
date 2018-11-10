@@ -122,11 +122,12 @@ async function ignoreChannel(msg) {
 async function getWishlist(msg) {
   let user = await getUserData(msg)
   let wishlist = `\`\`\`diff\n+\ Waifus\n`
-  user.waifu.sort().forEach(char => {
-    wishlist.concat(`---${char.charAt(0).toUpperCase() + char.slice(1)}`)
+  user.waifu.forEach(char => {
+    wishlist.concat(`---${char}\n`)
   })
-  user.show.sort().forEach(shows => {
-    wishlist.concat(`---${shows.charAt(0).toUpperCase() + shows.slice(1)}`)
+  wishlist.concat("+\ Shows\n")
+  user.show.forEach(shows => {
+    wishlist.concat(`---${shows}\n`)
   })
   msg.channel.send(wishlist)
   return true
