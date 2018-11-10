@@ -4,7 +4,7 @@
 // ########################################################
 
 const mongoose = require('mongoose')
-const self = require('./mudae')
+const self = require('./mudaeold')
 
 let userSchema = new mongoose.Schema({id: String, waifu: Array, show: Array})
 let user = mongoose.model('waifus', userSchema)

@@ -5,8 +5,8 @@ exports.Message = class {
         this.type = 'DEFAULT';
         this.content = content;
         this.author = {
-            id: '173015228106145792',
-            username: 'Puffycheeses',
+            id: '17301522810614579111',
+            username: 'Puffycheeses(Test Data)',
             discriminator: '0001',
             avatar: 'bc161501191c2466e3732d10166f75d8',
             bot: false,

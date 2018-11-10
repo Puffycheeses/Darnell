@@ -23,18 +23,25 @@ client.on('message', msg => {
     com.checkCommand(msgText).then(command => { // Run message through checkCommand to see if it contains key words of the command
       console.log(`${msgText} => ${command} <= ${msg.author.username}`) // Debug & log
       switch (command) {
+        // Coins
         case 'checkCoins': com.checkCoins(msg); break
-        case 'ignoreChannel': com.ignoreChannel(msg); break
-        case 'inviteLink':com.inviteLink(msg); break
-        case 'waifuGrabber': com.waifuGrabber(msg); break
+        // Mudae
+        case 'ignoreChannel': com.addIgnore(msg); break
+        case 'unignoreChannel': com.removeIgnore(msg); break
+        case 'addWaifu': com.addWaifu(msg); break
+        case 'removeWaifu': com.removeWaifu(msg); break
+        case 'addShow': com.addShow(msg); break
+        case 'removeShow': com.removeShow(msg); break
+        case 'getWishList': com.getWishlist(msg); break
+        // Osu
         case 'osu': com.osu(msg); break
+        // General
         case 'comeOutHere': com.comeOutHere(msg); break
         case 'leave': base.leaveVoice(msg); break
         case 'phase': base.checkPhase(msg); break
         case 'restart': com.restart(msg); break
-        case 'addWaifu': com.mudae(msg); break
-        case 'removeWaifu': com.mudaeRem(msg); break
-        case 'getWishList': com.mudaeWishList(msg); break
+        case 'inviteLink':com.inviteLink(msg); break
+        case 'waifuGrabber': com.waifuGrabber(msg); break
         case 'help': msg.author.send(keys.helpText); msg.channel.send('I PM\'d you the help!'); break
         default: com.yeahNah(msg); break
       }
@@ -45,10 +52,8 @@ client.on('message', msg => {
     com.nhentai(msg)
   }
 
-  if (msg.author.id === '432610292342587392' || msg.author.id === '479206206725160960' || msg.author.id === '488711695640821760' || msg.author.id === '494636093711450152') {
-    if (msg.embeds !== []) { // A bunch of stuff to check if Mudae has sent a message
+  if (base.mudaeCheck(msg)) {
       com.mudaeCheck(msg)
-    }
   }
 
   if (base.contains(msg, 'thanks darnell')) {

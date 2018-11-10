@@ -8,35 +8,47 @@ const osu = require('./commands/osu');
 const comeOutHere = require('./commands/comeOutHere');
 const nhentai = require('./commands/nhentai');
 const restart = require('./commands/restart');
-const mudae = require('./commands/mudae');
+const mudae = require('./commands/mudae/mudae');
 const coins = require('./commands/coins/coins');
 
+// General
 exports.waifuGrabber = getWaifu.waifu;
 exports.inviteLink = inviteLink.inviteLink;
 exports.yeahNah = yeahNah.YeahNah;
 exports.yo = yo.yo;
-exports.osu = osu.osu;
 exports.comeOutHere = comeOutHere.comeOutHere;
 exports.nhentai = nhentai.nhentai;
 exports.restart = restart.restart;
-exports.mudae = mudae.addWaifu;
-exports.mudaeRem = mudae.removeWaifu;
-exports.mudaeWishList = mudae.getWishList;
-exports.mudaeCheck = mudae.check;
-exports.getShowFreq = mudae.getShowFreq;
+// Osu
+exports.osu = osu.osu;
+// Coins
 exports.addCoins = coins.addCoins;
 exports.checkCoins = coins.printCoins;
-exports.ignoreChannel = mudae.ignoreChannel;
+// Mudae
+exports.mudaeCheck = mudae.check
+exports.addWaifu = mudae.addWaifu
+exports.addShow = mudae.addShow
+exports.removeWaifu = mudae.removeWaifu
+exports.removeShow = mudae.removeShow
+exports.addIgnore = mudae.addIgnore
+exports.removeIgnore = mudae.removeIgnore
+exports.getWishlist = mudae.getWishlist
 
 exports.checkCommand = async function (message) {
   const commands = {
+    // Coins
     "checkCoins": ["check", "my", "coins"],
+    // Mudae
     "ignoreChannel": ["can", "you", "ignore"],
-    "getFreq": ["get", "show", "frequency"],
+    "unignoreChannel": ["can", "you", "un-ignore"],
     "getWishList": ["grab", "my", "wishlist"],
     "addWaifu": ["add ", " to my wishlist"],
     "removeWaifu": ["remove ", " from my wishlist"],
+    "addShow": ["add the show ", " to my wishlist"],
+    "removeShow": ["remove the show ", " from my wishlist"],
+    // Osu
     "osu": ["osu", "stats"],
+    // General
     "inviteLink": ["invite", "link"],
     "waifuGrabber": ["grab", "me"],
     "comeOutHere": ["wanna", "come", "out", "here"],

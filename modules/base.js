@@ -48,3 +48,23 @@ exports.checkPhase = async function (msg) {
   commit[commit.length - 1] = [commit[commit.length - 2], commit[commit.length - 2] = commit[commit.length - 1]][0]
   msg.channel.send(`I am currently on phase ${commit.join('')}.`)
 }
+
+exports.mudaeCheck = async function (msg) {
+  if (msg.author.id === '432610292342587392' || msg.author.id === '479206206725160960' || msg.author.id === '488711695640821760' || msg.author.id === '494636093711450152') {
+    if (msg.embeds !== []) {
+      return true
+    }
+  }
+  return false
+}
+
+exports.arrayUnique = function (array) {
+  let a = array.concat();
+  for(let i=0; i<a.length; ++i) {
+    for(let j=i+1; j<a.length; ++j) {
+      if(a[i] === a[j])
+        a.splice(j--, 1);
+    }
+  }
+  return a;
+}
