@@ -105,14 +105,14 @@ async function checkWaifu (msg, name) {
   return (await user.find({waifu: name})
   .select({"id": 1, "_id": 0}))
   .map(obj => {return `<@${obj.id}>`})
-  .filter(exists => {return ((msg.guild.members).map(usr => {return `${usr}`})).includes( exists );})
+  .filter(exists => {return ((msg.guild.members).map(usr => {return `${usr}`.replace("!", "")})).includes( exists );})
 }
 
 async function checkShow(msg, show) {
   return (await user.find({show: show})
   .select({"id": 1, "_id": 0}))
   .map(obj => {return `<@${obj.id}>`})
-  .filter(exists => {return ((msg.guild.members).map(usr => {return `${usr}`})).includes( exists );})
+  .filter(exists => {return ((msg.guild.members).map(usr => {return `${usr}`.replace("!", "")})).includes( exists );})
 }
 
 async function ignoreChannel(msg) {
@@ -121,7 +121,14 @@ async function ignoreChannel(msg) {
 
 async function getWishlist(msg) {
   let user = await getUserData(msg)
-  msg.channel.send(`Your wishlist is:\`\`\`diff\n+\ Waifus\n--- ${user.waifu.sort().toString().split(',').join('\n--- ')}\n+\ Shows\n--- ${user.show.sort().toString().split(',').join('\n--- ')}\`\`\``)
+  let wishlist = `\`\`\`diff\n+\ Waifus\n`
+  user.waifu.sort().forEach(char => {
+    wishlist.concat(`---${char.charAt(0).toUpperCase() + char.slice(1)}`)
+  })
+  user.show.sort().forEach(shows => {
+    wishlist.concat(`---${shows.charAt(0).toUpperCase() + shows.slice(1)}`)
+  })
+  msg.channel.send(wishlist)
   return true
 }
 
