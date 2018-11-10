@@ -96,7 +96,7 @@ async function check (msg) {
   let show = msg.embeds[0].description.split('<')[0].split('\n')[0].substring(0, 16).toLowerCase().replace(/^\s+|\s+$/g, '')
   let tagged = base.arrayUnique((await checkWaifu (name)).concat((await checkShow(show)))).toString().replace(/,/g, " ")
   if (tagged) {
-    msg.channel.send(`${tagged} something from your wishlist has appeared`)
+    msg.channel.send(`${name} from ${show} has appeared! ${tagged}`)
   }
 
 }
