@@ -12,7 +12,7 @@ client.on('message', msg => {
 
   if (msg.author.id === '444754530685419520') return // Ignore Self
   if (keys.ignore.some(word => msgText.includes(word))) return // If message contains any words on ignore list
-  if (/(^yo darnell$)/.test(msgText)) msg.channel.send(yo) // If message is just "yo darnell" he will respond with yo
+  if (/(^yo darnell$)/.test(msgText)) msg.channel.send("yo") // If message is just "yo darnell" he will respond with yo
   if (Math.floor(Math.random() * odds) === 1) {
     msg.channel.send('gosh darnit darnell')
     com.addCoins(msg, 100, 0)
