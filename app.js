@@ -23,7 +23,8 @@ client.on('message', msg => {
     for (let parent in com.commands) {
       for (let child in com.commands[parent]) {
         if ((com.commands[parent][child].check).every(word => msgText.includes(word))) {
-          console.log(`${msg.author.username} => ${com.commands[parent][child].name}|${parent} @ ${new Date()}`) // Logging
+          let d = new Date()
+          console.log(`${msg.author.username} => ${com.commands[parent][child].name}|${parent} @ ${d.getDay()}/${d.getMonth()}/${d.getFullYear()} ${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`) // Logging
           com.commands[parent][child].calls(msg)
           return
         }
