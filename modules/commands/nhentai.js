@@ -8,6 +8,7 @@ exports.nhentai = function (msg) {
   let id = msg.content.split(/([0-9]{6})/).find(value => /([0-9]{6})/.test(value))
   base.makeGetRequest(`https://nhentai.net/api/gallery/${id}`).then(data => {
     // Separate comments based on tags
+    let d = new Date()
     console.log(`${msg.author.username} => nhentai()|nhentai @ ${d.getDate()}/${d.getMonth()}/${d.getFullYear()} ${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`) // Logging
     let tags = []
     data.tags.forEach(tag => {
