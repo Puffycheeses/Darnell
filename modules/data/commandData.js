@@ -104,14 +104,6 @@ let commands = {
   ]
 }
 
-for (let parent in comdata.commands) {
-  for (let child in comdata.commands.parent) {
-    if ((child.check).every(word => msgText.includes(word))) {
-      child.calls(msg)
-    }
-  }
-}
-
 module.exports = {
   commands: commands
 }
