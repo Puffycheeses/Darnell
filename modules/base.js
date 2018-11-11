@@ -53,6 +53,10 @@ exports.CheckIfMsgIsMudae = function (msg) {
   return (msg.author.id === '432610292342587392' || msg.author.id === '479206206725160960' || msg.author.id === '488711695640821760' || msg.author.id === '494636093711450152') && msg.embeds !== [];
 }
 
+exports.help = function (msg) {
+  msg.author.send(keys.helpText); msg.channel.send('I PM\'d you the help!');
+}
+
 exports.arrayUnique = function (array) {
   let a = array.concat();
   for(let i=0; i<a.length; ++i) {
