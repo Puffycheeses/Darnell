@@ -22,9 +22,9 @@ client.on('message', msg => {
   if (/(^yo darnell)( *|, *|. *)[a-zA-Z0-9]|(^d!)/.test(msgText)) {
     for (let parent in com.commands) {
       for (let child in com.commands[parent]) {
-        if ((child.check).every(word => msgText.includes(word))) {
-          console.log(`${msg.author} => ${child.name}|${parent} @ ${new Date()}`) // Logging
-          child.calls(msg)
+        if ((com.commands[parent][child].check).every(word => msgText.includes(word))) {
+          console.log(`${msg.author.username} => ${com.commands[parent][child].name}|${parent} @ ${new Date()}`) // Logging
+          com.commands[parent][child].calls(msg)
           return
         }
       }
