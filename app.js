@@ -12,7 +12,7 @@ client.on('message', msg => {
 
   if (msg.author.id === '444754530685419520') return // Ignore Self
   if (keys.ignore.some(word => msgText.includes(word))) return // If message contains any words on ignore list
-  if (/(^yo darnell$)/.test(msgText)) com.yo(msg) // If message is just "yo darnell" he will respond with yo
+  if (/(^yo darnell$)/.test(msgText)) msg.channel.send(yo) // If message is just "yo darnell" he will respond with yo
   if (Math.floor(Math.random() * odds) === 1) {
     msg.channel.send('gosh darnit darnell')
     com.addCoins(msg, 100, 0)
@@ -24,13 +24,13 @@ client.on('message', msg => {
       for (let child in com.commands[parent]) {
         if ((com.commands[parent][child].check).every(word => msgText.includes(word))) {
           let d = new Date()
-          console.log(`${msg.author.username} => ${com.commands[parent][child].name}|${parent} @ ${d.getDay()}/${d.getMonth()}/${d.getFullYear()} ${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`) // Logging
+          console.log(`${msg.author.username} => ${com.commands[parent][child].name}|${parent} @ ${d.getDate()}/${d.getMonth()}/${d.getFullYear()} ${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`) // Logging
           com.commands[parent][child].calls(msg)
           return
         }
       }
     }
-    msg.channel.send("what")
+    com.yeahNah(msg)
   }
 
   if (/( ([0-9]{6})$|^([0-9]{6})$| ([0-9]{6}) |^([0-9]{6} ))/g.test(msgText)) { // Regex to check if message contains NHentai tag
@@ -38,7 +38,7 @@ client.on('message', msg => {
   }
 
   if (base.CheckIfMsgIsMudae(msg)) {
-      com.mudaeCheck(msg)
+    com.mudaeCheck(msg)
   }
 
   if (base.contains(msg, 'thanks darnell')) {
