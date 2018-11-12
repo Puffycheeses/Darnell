@@ -56,7 +56,7 @@ client.on('message', msg => {
       com.mudaeCheck(msg)
   }
 
-  if (base.contains(msg, 'thanks darnell')) {
+  if (/^(thanks darnell)/.test(msg.content.toLowerCase())) {
     msg.channel.send('No problem')
     com.addCoins(msg, 1, 15000)
   }
