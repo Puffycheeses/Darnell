@@ -31,5 +31,3 @@ Due to the nature of the commands it is difficult to provide a concise way of us
 `yo darnell help`
 - View more help for more basic abstract commands
 ---
-
-You can view [checkCommand()](https://github.com/Puffycheeses/Darnell/blob/00abf65582b5dc6a974362270bbb0abf56883e7f/modules/hub.js#L26) in `hub.js` for specifics on calling each command 
