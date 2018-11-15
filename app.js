@@ -38,6 +38,8 @@ client.on('message', msg => {
   }
 
   if (base.CheckIfMsgIsMudae(msg)) {
+    let d = new Date()
+    console.log(`${msg.author.username} => Check()|Mudae @ ${d.getDate()}/${d.getMonth()}/${d.getFullYear()} ${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`) // Logging
     com.mudaeCheck(msg)
   }
 
