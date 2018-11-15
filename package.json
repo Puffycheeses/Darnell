@@ -12,14 +12,14 @@
     "jquery": "^3.3.1",
     "mocha": "^5.2.0",
     "mongoose": "^5.3.0",
-    "mysql": "^2.15.0",
     "npm": "^6.4.1",
     "npm-cache": "^0.7.0",
     "request": "^2.87.0",
     "request-promise": "^4.2.2",
     "shelljs": "^0.8.2",
     "should": "^13.2.3",
-    "webscrape": "^1.4.0"
+    "webscrape": "^1.4.0",
+    "osu-parser": "^0.3.3"
   },
   "devDependencies": {},
   "scripts": {

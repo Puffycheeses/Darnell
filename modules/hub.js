@@ -2,9 +2,8 @@
 
 const getWaifu = require('./commands/GetWaifu');
 const yeahNah = require('./commands/yeahNah');
-const yo = require('./commands/yo');
 const inviteLink = require('./commands/inviteLink');
-const osu = require('./commands/osu');
+const osu = require('./commands/osu/osu');
 const comeOutHere = require('./commands/comeOutHere');
 const nhentai = require('./commands/nhentai');
 const restart = require('./commands/restart');
@@ -15,7 +14,6 @@ const coins = require('./commands/coins/coins');
 exports.waifuGrabber = getWaifu.waifu;
 exports.inviteLink = inviteLink.inviteLink;
 exports.yeahNah = yeahNah.YeahNah;
-exports.yo = yo.yo;
 exports.comeOutHere = comeOutHere.comeOutHere;
 exports.nhentai = nhentai.nhentai;
 exports.restart = restart.restart;

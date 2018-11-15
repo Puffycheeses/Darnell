@@ -1,7 +1,7 @@
 const getWaifu = require('../commands/GetWaifu');
 const yeahNah = require('../commands/yeahNah');
 const inviteLink = require('../commands/inviteLink');
-const osu = require('../commands/osu');
+const osu = require('../commands/osu/osu');
 const comeOutHere = require('../commands/comeOutHere');
 const nhentai = require('../commands/nhentai');
 const mudae = require('../commands/mudae/mudae');
@@ -100,10 +100,8 @@ let commands = {
   ]
 }
 
-module.exports = {
-  commands: commands,
-  nhentai: nhentai.nhentai,
-  mudaeCheck: mudae.check,
-  addCoins: coins.addCoins,
-  yeahNah: yeahNah.YeahNah
-}
+exports.commands = commands
+exports.nhentai = nhentai.nhentai
+exports.mudaeCheck = mudae.check
+exports.addCoins = coins.addCoins
+exports.yeahNah = yeahNah.YeahNah
