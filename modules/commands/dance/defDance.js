@@ -19,8 +19,8 @@ function sleep(ms) {
 async function dance(msg) {
   let message = await msg.channel.send("Ok, This is epic")
   for (const frame of monster) {
-    message.edit(frame)
-    await sleep(1000)
+    await message.edit(frame)
+    await sleep(500)
   }
 }
 

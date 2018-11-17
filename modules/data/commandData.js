@@ -68,11 +68,6 @@ let commands = {
 
   general: [
     {
-      name: "dance()",
-      check: ["this", "is", "epic"],
-      calls: dance.dance
-    },
-    {
       name: "inviteLink()",
       check: ["invite", "link"],
       calls: inviteLink.inviteLink
@@ -101,6 +96,11 @@ let commands = {
       name: "help()",
       check: ["help"],
       calls: base.help
+    },
+    {
+      name: "dance()",
+      check: ["this", "is", "epic"],
+      calls: dance.dance
     }
   ]
 }
