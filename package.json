@@ -1,9 +1,10 @@
 {
-  "name": "Darnell",
+  "name": "darnell",
   "version": "1.0.0",
   "description": "Darnell is a discord bot that I run privately but if your interested in the code it is available here",
   "main": "app.js",
   "dependencies": {
+    "adm-zip": "^0.4.13",
     "cheerio": "^1.0.0-rc.2",
     "discord.js": "^11.3.2",
     "git-commit-count": "^1.1.3",
@@ -14,12 +15,14 @@
     "mongoose": "^5.3.0",
     "npm": "^6.4.1",
     "npm-cache": "^0.7.0",
+    "ojsama": "^1.0.19",
+    "osu-parser": "^0.3.3",
     "request": "^2.87.0",
     "request-promise": "^4.2.2",
     "shelljs": "^0.8.2",
     "should": "^13.2.3",
-    "webscrape": "^1.4.0",
-    "osu-parser": "^0.3.3"
+    "tough-cookie": "latest",
+    "webscrape": "^1.4.0"
   },
   "devDependencies": {},
   "scripts": {

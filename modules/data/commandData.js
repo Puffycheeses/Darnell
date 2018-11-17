@@ -7,7 +7,7 @@ const nhentai = require('../commands/nhentai');
 const mudae = require('../commands/mudae/mudae');
 const coins = require('../commands/coins/coins');
 const base = require('../base')
-
+const dance = require('../commands/dance/defDance')
 
 
 
@@ -96,6 +96,11 @@ let commands = {
       name: "help()",
       check: ["help"],
       calls: base.help
+    },
+    {
+      name: "dance()",
+      check: ["this", "is", "epic"],
+      calls: dance.dance
     }
   ]
 }
