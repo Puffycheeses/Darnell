@@ -4,6 +4,7 @@
 
 const request = require('request-promise')
 const shell = require('shelljs')
+const keys = require('./keys/keys')
 
 exports.contains = function (msg, term) {
   return msg.content.toLowerCase().includes(term)
